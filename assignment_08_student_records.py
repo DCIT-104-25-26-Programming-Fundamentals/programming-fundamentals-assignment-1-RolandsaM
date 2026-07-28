@@ -90,3 +90,71 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def add_student(students):
+ name = input("Student name: ")
+ id_number = int(input("Student ID: "))
+ count = int(input("How many scores? "))
+ scores = []
+ for i in range(count):
+  score = int(input("Enter score " + str(i + 1) + ": "))
+  scores.append(score)
+ student = {"name": name, "id": id_number, "scores": scores}
+ students.append(student)
+ print("Student \"" + name + "\" added successfully.")
+
+def calculate_average(scores):
+ total = 0
+ for score in scores:
+  total = total + score
+ return round(total / len(scores), 2)
+
+def display_students(students):
+ if len(students) == 0:
+  print("No students have been added yet.")
+ else:
+  print("--------------------------------------------------")
+  print("Name           ID          Scores         Average")
+  print("--------------------------------------------------")
+  for student in students:
+   scores_text = ""
+   for i in range(len(student["scores"])):
+    scores_text = scores_text + str(student["scores"][i])
+    if i < len(student["scores"]) - 1:
+     scores_text = scores_text + ", "
+   average = calculate_average(student["scores"])
+   print(student["name"] + "   " + str(student["id"]) + "    " + scores_text + "     " + str(average))
+  print("--------------------------------------------------")
+
+def find_student_average(students):
+ search_id = int(input("Enter student ID: "))
+ found = False
+ for student in students:
+  if student["id"] == search_id:
+   found = True
+   average = calculate_average(student["scores"])
+   print(student["name"] + "'s average score: " + str(average))
+ if not found:
+  print("Error: student ID not found.")
+
+students = []
+
+while True:
+ print("================================")
+ print("   STUDENT RECORD SYSTEM MENU")
+ print("================================")
+ print("1. Add student")
+ print("2. Display all students")
+ print("3. Calculate average score")
+ print("4. Quit")
+ choice = input("Enter your choice (1-4): ")
+
+ if choice == "1":
+  add_student(students)
+ elif choice == "2":
+  display_students(students)
+ elif choice == "3":
+  find_student_average(students)
+ elif choice == "4":
+  break
+ else:
+  print("Error: invalid choice. Please enter 1-4.")
